@@ -1017,6 +1017,10 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
 
         scores = torch.gather(scores, 1, order)
         labels = torch.gather(labels, 1, order)
+        ##todo: mask should only used in eval,
+        # trainning should mask first and then -gt_masks to recover the truth score
+        # to ensurh all the gt inds in it, otherwise the low score(initial) will exclude the gt inds
+        # from the debug info, it seems the scores all over the threds in training, it will not mask mistakes
         mask = scores > self.score_threshold
 
         ct_feat = (

@@ -65,11 +65,19 @@ class Preprocess_multiframe(object):
                 previous_frame = res["lidar"]["points"][1:]
                 time_frame = [time[0,0] for time in res["lidar"]["times"]]
         elif res["type"] in ["NuScenesDataset"]:
-            points = res["lidar"]["combined"]
+            if "combined" in res["lidar"]:
+                points = res["lidar"]["combined"]
+            else:
+                points = res["lidar"]["points"]
         elif res["type"] in ["NuScenesDataset_multi_frame"]:
-            points = res["lidar"]["combined"][0]
-            previous_frame = res["lidar"]["combined"][1:]
-            time_frame = [time[0,0] for time in res["lidar"]["times"]]
+            if self.combine_frame:
+                points = res["lidar"]["combined"][0]
+                previous_frame = res["lidar"]["combined"][1:]
+                time_frame = [time[0,0] for time in res["lidar"]["times"]]
+            else:
+                points = res["lidar"]["points"][0]
+                previous_frame = res["lidar"]["points"][1:]
+                time_frame = [time[0,0] for time in res["lidar"]["times"]]
         else:
             raise NotImplementedError
 
@@ -137,7 +145,7 @@ class Preprocess_multiframe(object):
                     points_num.append(points.shape[0])
                     points_timeframe.append(0.)
 
-                    if res["type"] in ["WaymoDataset_multi_frame"]:
+                    if res["type"] in ["WaymoDataset_multi_frame", "NuScenesDataset_multi_frame"]:
                         for idx, pre_points in enumerate(previous_frame):
                             pre_points = np.concatenate([sampled_points, pre_points], axis=0)
                             points_num.append(pre_points.shape[0])
@@ -146,7 +154,7 @@ class Preprocess_multiframe(object):
                 else:
                     points_num.append(points.shape[0])
                     points_timeframe.append(0.)
-                    if res["type"] in ["WaymoDataset_multi_frame", "NuScenesDataset_multi_frame"] :
+                    if res["type"] in ["WaymoDataset_multi_frame", "NuScenesDataset_multi_frame"]:
                         for idx, pre_points in enumerate(previous_frame):
                             points_num.append(pre_points.shape[0])
                             points = np.concatenate([points, pre_points], axis=0)

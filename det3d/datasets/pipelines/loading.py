@@ -137,7 +137,59 @@ class LoadPointCloudFromFile(object):
             res["lidar"]["points"] = points
             res["lidar"]["times"] = times
             res["lidar"]["combined"] = np.hstack([points, times])
-        
+        elif self.type == "NuScenesDataset_multi_frame":
+
+            nsweeps = res["lidar"]["nsweeps"]
+
+            lidar_path = Path(info["lidar_path"])
+            points = read_file(str(lidar_path), painted=res["painted"])
+
+            sweep_points_list = [points]
+            sweep_times_list = [np.zeros((points.shape[0], 1))]
+            combine = self.combine_frames
+            c_frame = nsweeps // combine
+
+            assert (nsweeps - 1) == len(
+                info["sweeps"]
+            ), "nsweeps {} should equal to list length {}.".format(
+                nsweeps, len(info["sweeps"])
+            )
+
+            if c_frame > 0:
+                sweep_points_list = []
+                sweep_times_list = []
+                sweep_combined_list = []
+
+                combine_points_list = [points]
+                combine_times_list = [np.zeros((points.shape[0], 1))]
+                for j in range(combine-1):
+                    sweep = info["sweeps"][j]
+                    points_sweep, times_sweep = read_sweep(sweep, painted=res["painted"])
+                    combine_points_list.append(points_sweep)
+                    combine_times_list.append(times_sweep)
+
+                sweep_points_list.append(np.concatenate(combine_points_list, axis=0))
+                sweep_times_list.append(np.concatenate(combine_times_list, axis=0).astype(points.dtype))
+                sweep_combined_list.append(np.hstack([sweep_points_list[-1], sweep_times_list[-1]]))
+
+                for i in range(c_frame - 1):
+                    combine_points_list = []
+                    combine_times_list = []
+                    for j in range(combine):
+                        sweep = info["sweeps"][(i + 1) * combine + j - 1]
+                        points_sweep, times_sweep = read_sweep(sweep, painted=res["painted"])
+                        combine_points_list.append(points_sweep)
+                        combine_times_list.append(times_sweep)
+
+                    sweep_points_list.append(np.concatenate(combine_points_list, axis=0))
+                    sweep_times_list.append(np.concatenate(combine_times_list, axis=0).astype(points.dtype))
+                    sweep_combined_list.append(np.hstack([sweep_points_list[-1], sweep_times_list[-1]]))
+
+            res["lidar"]["points"] = sweep_points_list
+            res["lidar"]["times"] = sweep_times_list
+            res["lidar"]["combined"] = sweep_combined_list
+
+
         elif self.type == "WaymoDataset":
             path = info['path']
             nsweeps = res["lidar"]["nsweeps"]
@@ -225,7 +277,7 @@ class LoadPointCloudAnnotations(object):
 
     def __call__(self, res, info):
 
-        if res["type"] in ["NuScenesDataset"] and "gt_boxes" in info:
+        if res["type"] in ["NuScenesDataset", "NuScenesDataset_multi_frame"] and "gt_boxes" in info:
             gt_boxes = info["gt_boxes"].astype(np.float32)
             gt_boxes[np.isnan(gt_boxes)] = 0
             res["lidar"]["annotations"] = {
