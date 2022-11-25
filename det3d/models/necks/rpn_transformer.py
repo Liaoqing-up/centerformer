@@ -150,7 +150,7 @@ class RPN_transformer_base(nn.Module):
         self.hm_head.add(
             nn.Conv2d(64, classes, kernel_size=3, stride=1, padding=1, bias=True)
         )
-        self.hm_head[-1].bias.data.fill_(init_bias)
+        self.hm_head[-1].bias.data.fill_(init_bias)     ## why fill bias ?
 
         if self.corner:
             self.corner_head = Sequential()
@@ -404,7 +404,8 @@ class RPN_transformer(RPN_transformer_base):
             self.pos_embedding = None
         else:
             raise NotImplementedError()
-        self.cross_attention_kernel_size = transformer_config.cross_attention_kernel_size
+        # self.cross_attention_kernel_size = transformer_config.cross_attention_kernel_size ##todo
+        self.cross_attention_kernel_size = [3, 3, 3]
         self.parametric_embedding = parametric_embedding
         if self.parametric_embedding:
             self.query_embed = nn.Embedding(self.obj_num, self._num_filters[-1] * 2)

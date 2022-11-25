@@ -163,6 +163,7 @@ class CenterHeadIoU_1d(nn.Module):
 
         y = self.shared_conv(x["ct_feat"].float())
 
+        # import pdb;pdb.set_trace()
         for task in self.tasks:
             ret_dicts.append(task(x, y))
 
@@ -228,6 +229,7 @@ class CenterHeadIoU_1d(nn.Module):
 
             # Regression loss for dimension, offset, height, rotation
             # get corresponding gt box # B, 500
+            ##todo: not 二分图匹配 ?
             target_box, selected_mask, selected_cls = get_corresponding_box(
                 preds_dict["order"],
                 example["ind"][task_id],
