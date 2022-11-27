@@ -20,12 +20,30 @@ def _dict_select(dict_, inds):
         else:
             dict_[k] = v[inds]
 
+
+def handle_painted(path, num_point_feature):
+    painted_dir_name = '_VIRTUAL_DBSCAN_3D_10_FILTEDGE'
+    dir_path = '/' + os.path.join(*path.split('/')[:-2], path.split('/')[-2]+painted_dir_name)
+    painted_path = os.path.join(dir_path, path.split('/')[-1]+'.pkl.npy')
+    points_dict =  np.load(painted_path, allow_pickle=True).item()
+    fore_points =  points_dict['real_points']   ## N 15
+    raw_points =  np.fromfile(path, dtype=np.float32).reshape(-1, 5)[:, :num_point_feature]
+
+    back_mask = np.ones(raw_points.shape[0], dtype=bool)
+    back_mask[points_dict['real_points_indice']] = 0
+    back_points = raw_points[back_mask] ## N 4
+    back_points = np.concatenate([back_points, np.ones([back_points.shape[0], 15-num_point_feature])], axis=1)
+    points = np.concatenate([fore_points, back_points], axis=0).astype(np.float32)
+    return points
+
+
 def read_file(path, tries=2, num_point_feature=4, painted=False):
     if painted:
-        dir_path = os.path.join(*path.split('/')[:-2], 'painted_'+path.split('/')[-2])
-        painted_path = os.path.join(dir_path, path.split('/')[-1]+'.npy')
-        points =  np.load(painted_path)
-        points = points[:, [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]] # remove ring_index from features 
+        #dir_path = os.path.join(*path.split('/')[:-2], 'painted_'+path.split('/')[-2])
+        #painted_path = os.path.join(dir_path, path.split('/')[-1]+'.npy')
+        #points =  np.load(painted_path)
+        #points = points[:, [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]] # remove ring_index from features 
+        points = handle_painted(path, num_point_feature)
     else:
         points = np.fromfile(path, dtype=np.float32).reshape(-1, 5)[:, :num_point_feature]
 

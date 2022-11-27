@@ -95,6 +95,7 @@ class SpMiddleResNetFHD(nn.Module):
             norm_cfg = dict(type="BN1d", eps=1e-3, momentum=0.01)
 
         # input: # [1600, 1200, 41]
+        ## todo: num_input_features=16, init_channel=16, should add the init_channel to 32 ?
         self.conv_input = spconv.SparseSequential(
             SubMConv3d(num_input_features, init_channel, 3, bias=False, indice_key="res0"),
             build_norm_layer(norm_cfg, init_channel)[1],
