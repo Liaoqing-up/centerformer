@@ -718,6 +718,7 @@ class RPN_transformer_deformable(RPN_transformer_base):
         init_bias=-2.19,
         score_threshold=0.1,
         obj_num=500,
+        custom_deformable=False,
         **kwargs
     ):
         super(RPN_transformer_deformable, self).__init__(
@@ -747,6 +748,7 @@ class RPN_transformer_deformable(RPN_transformer_base):
             dropout=transformer_config.DP_rate,
             out_attention=transformer_config.out_att,
             n_points=transformer_config.get("n_points", 9),
+            custom_deformable=custom_deformable,
         )
         self.pos_embedding_type = transformer_config.get(
             "pos_embedding_type", "linear"
@@ -896,6 +898,7 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
         score_threshold=0.1,
         obj_num=500,
         frame=1,
+        custom_deformable=False,
         **kwargs
     ):
         super(RPN_transformer_deformable_mtf, self).__init__(
@@ -941,6 +944,7 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
             dropout=transformer_config.DP_rate,
             out_attention=transformer_config.out_att,
             n_points=transformer_config.get("n_points", 9),
+            custom_deformable=custom_deformable,
         )
         self.pos_embedding_type = transformer_config.get(
             "pos_embedding_type", "linear"

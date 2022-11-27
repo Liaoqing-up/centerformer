@@ -7,7 +7,7 @@ from torch.nn import functional as F
 from torch import batch_norm, einsum
 
 from einops import rearrange, repeat
-from det3d.models.ops.modules import MSDeformAttn
+from det3d.models.ops.modules import MSDeformAttn, CSDeformAttn
 
 
 class MLP(nn.Module):
@@ -154,13 +154,19 @@ class DeformableTransformerCrossAttention(nn.Module):
         n_heads=6,
         n_points=9,
         out_sample_loc=False,
+        custom_deformable=False,
     ):
         super().__init__()
 
         # cross attention
-        self.cross_attn = MSDeformAttn(
-            d_model, d_head, n_levels, n_heads, n_points, out_sample_loc=out_sample_loc
-        )
+        if not custom_deformable:
+            self.cross_attn = MSDeformAttn(
+                d_model, d_head, n_levels, n_heads, n_points, out_sample_loc=out_sample_loc
+            )
+        else:
+            self.cross_attn = CSDeformAttn(
+                d_model, d_head, n_levels, n_heads, n_points, out_sample_loc=out_sample_loc
+            )
         self.dropout = nn.Dropout(dropout)
         self.out_sample_loc = out_sample_loc
 
@@ -298,6 +304,7 @@ class Deform_Transformer(nn.Module):
         dropout=0.0,
         out_attention=False,
         n_points=9,
+        custom_deformable=False,
     ):
         super().__init__()
         self.out_attention = out_attention
@@ -330,6 +337,7 @@ class Deform_Transformer(nn.Module):
                                 dropout=dropout,
                                 n_points=n_points,
                                 out_sample_loc=self.out_attention,
+                                custom_deformable=custom_deformable,
                             ),
                         ),
                         PreNorm(dim, FeedForward(dim, mlp_dim, dropout=dropout)),
