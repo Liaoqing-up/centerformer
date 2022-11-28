@@ -53,6 +53,42 @@ Please refer to [INSTALL](docs/INSTALL.md) to set up libraries needed for distri
 ## Training and Evaluation
 Please refer to [WAYMO](docs/WAYMO.md) to prepare the data, training and evaluation.
 
+## Star Car members use pose
+
+1. we support a common anaconda env for team members, you should modify your anaconda config.
+```vim ~/.bashrc```, then anotation your initial anaconda and add the following:
+```
+# >>> conda initialize  starcar >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/sdatmp/starcar/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/sdatmp/starcar/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/sdatmp/starcar/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/sdatmp/starcar/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+export PATH="/opt/sdatmp/starcar/anaconda3/bin:$PATH"
+```
+2. run ```which conda```to verify the output```/opt/sdatmp/starcar/anaconda3/bin/conda```
+, then run ```conda activate CenterFormer``` to activate the exist environment.
+
+3. cd your project dir, then run ```git clone git@github.com:star-car/centerformer.git``` to clone the repo to your local. 
+you can run ```git branch``` to see all the branch now. To start your own development, you should create your own branch. Please following the operates.
+4. run ```git checkout dev``` to switch to ```dev``` branch, and then run ```git checkout -b yourname``` to create a your own branch, 
+all member's branch should rebase on ```dev``` branch. Please run ```git branch``` to check you are on your own branch now. Then you can modify the code and 
+use ```git commit``` to commit your development locally. If you have finished a key development, you can launch a PR
+ on github to merge your commit to ```dev``` branch, the repo owner will review your code and pass the PR. 
+Then the other members can sync your modification.
+5. If you have time, you should learn more about the common uses of git.
+
+
+
+
 
 ## Acknowlegement
 This project is developed based on the [CenterPoint](https://github.com/tianweiy/CenterPoint) codebase. We use the deformable cross-attention implementation from [Deformable-DETR](https://github.com/fundamentalvision/Deformable-DETR).
