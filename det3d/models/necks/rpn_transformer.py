@@ -150,7 +150,7 @@ class RPN_transformer_base(nn.Module):
         self.hm_head.add(
             nn.Conv2d(64, classes, kernel_size=3, stride=1, padding=1, bias=True)
         )
-        self.hm_head[-1].bias.data.fill_(init_bias)
+        self.hm_head[-1].bias.data.fill_(init_bias)     ## why fill bias ?
 
         if self.corner:
             self.corner_head = Sequential()
@@ -404,7 +404,8 @@ class RPN_transformer(RPN_transformer_base):
             self.pos_embedding = None
         else:
             raise NotImplementedError()
-        self.cross_attention_kernel_size = transformer_config.cross_attention_kernel_size
+        # self.cross_attention_kernel_size = transformer_config.cross_attention_kernel_size ##todo
+        self.cross_attention_kernel_size = [3, 3, 3]
         self.parametric_embedding = parametric_embedding
         if self.parametric_embedding:
             self.query_embed = nn.Embedding(self.obj_num, self._num_filters[-1] * 2)
@@ -717,6 +718,7 @@ class RPN_transformer_deformable(RPN_transformer_base):
         init_bias=-2.19,
         score_threshold=0.1,
         obj_num=500,
+        custom_deformable=False,
         **kwargs
     ):
         super(RPN_transformer_deformable, self).__init__(
@@ -746,6 +748,7 @@ class RPN_transformer_deformable(RPN_transformer_base):
             dropout=transformer_config.DP_rate,
             out_attention=transformer_config.out_att,
             n_points=transformer_config.get("n_points", 9),
+            custom_deformable=custom_deformable,
         )
         self.pos_embedding_type = transformer_config.get(
             "pos_embedding_type", "linear"
@@ -895,6 +898,7 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
         score_threshold=0.1,
         obj_num=500,
         frame=1,
+        custom_deformable=False,
         **kwargs
     ):
         super(RPN_transformer_deformable_mtf, self).__init__(
@@ -940,6 +944,7 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
             dropout=transformer_config.DP_rate,
             out_attention=transformer_config.out_att,
             n_points=transformer_config.get("n_points", 9),
+            custom_deformable=custom_deformable,
         )
         self.pos_embedding_type = transformer_config.get(
             "pos_embedding_type", "linear"
@@ -1016,6 +1021,10 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
 
         scores = torch.gather(scores, 1, order)
         labels = torch.gather(labels, 1, order)
+        ##todo: mask should only used in eval,
+        # trainning should mask first and then -gt_masks to recover the truth score
+        # to ensurh all the gt inds in it, otherwise the low score(initial) will exclude the gt inds
+        # from the debug info, it seems the scores all over the threds in training, it will not mask mistakes
         mask = scores > self.score_threshold
 
         ct_feat = (

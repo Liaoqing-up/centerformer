@@ -23,7 +23,7 @@ class Reformat(object):
 
         data_bundle = dict(
             metadata=meta,
-            points_num=res["lidar"]["points_num"]
+            #points_num=res["lidar"]["points_num"]  ##todo
             # points=points,
             # voxels=voxels["voxels"],
             # shape=voxels["shape"],
@@ -31,7 +31,8 @@ class Reformat(object):
             # num_voxels=voxels["num_voxels"],
             # coordinates=voxels["coordinates"]
         )
-
+        if "points_num" in res["lidar"].keys():
+            data_bundle.update(points_num=res["lidar"]["points_num"])
         if 'multi_points' in res["lidar"]:
             multi_points = res["lidar"]["multi_points"]
             data_bundle.update(multi_points=multi_points)
