@@ -482,7 +482,8 @@ class CenterHeadIoU_1d(nn.Module):
             if self.use_iou_loss:
                 iou_factor = torch.LongTensor(self.iou_factor).to(labels)
                 ious = batch_iou[i][mask]
-                ious = torch.pow(ious, iou_factor[labels])
+                # ious = torch.pow(ious, iou_factor[labels])    ## todo: fix the bug from iou_factors
+                ious = torch.pow(ious, 2)
                 scores = scores * ious
 
             boxes_for_nms = box_preds[:, [0, 1, 2, 3, 4, 5, -1]]
