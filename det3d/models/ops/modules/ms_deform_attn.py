@@ -155,7 +155,7 @@ class CSDeformAttn(nn.Module):
         self.sampling_offsets = nn.Linear(d_model, n_heads * n_levels * n_points * 2)
         # self.attention_weights = nn.Linear(d_model, n_heads * n_levels * n_points)
         self.query_proj = nn.Linear(d_model, d_head*n_heads)
-        self.key_proj_heads = nn.ModuleList([nn.Linear(d_model, d_head) for _ in range(n_heads)])  ##todo: c equal query?
+        self.key_proj_heads = nn.ModuleList([nn.Linear(d_model, d_head) for _ in range(n_heads)])
         self.value_proj_heads = nn.ModuleList([nn.Linear(d_model, d_head) for _ in range(n_heads)])
         self.attend = nn.Softmax(dim=-1)
         self.output_proj = nn.Linear(d_head*n_heads, d_model)
@@ -217,6 +217,7 @@ class CSDeformAttn(nn.Module):
             raise ValueError(
                 'Last dim of reference_points must be 2 or 4, but get {} instead.'.format(reference_points.shape[-1]))
         ##todo: gather the key and value input_flatten feature,  points_sample=15, dim=256
+        ##todo(chenzhao): need refactor this part because of the inefficient 'for' loop
         sampling_input_features_list = []
         for lid_, (H, W) in enumerate(input_spatial_shapes):
             input_features_ = input_flatten[:, input_level_start_index[lid_]:input_level_start_index[lid_]+H*W, :].reshape(
@@ -236,6 +237,7 @@ class CSDeformAttn(nn.Module):
         sampling_input_features_all = rearrange(sampling_input_features_all, "(b h) n m d -> b h n m d", b=N)
 
         ##  [1, 6, 500, 60, 256] ->  [1, 500, 60, 64] -> [1, 6, 500, 60, 64]
+        ##todo(chenzhao): need refactor this part multi-head loop
         key = torch.stack(
             [k_heads(sampling_input_features_all[:, i,]) for i, k_heads in enumerate(self.key_proj_heads)], dim=1)
         ## [1, 6, 500, 60, 64] -> [1*500, 6, 60, 64]

@@ -197,7 +197,7 @@ train_pipeline = [
     dict(type="LoadPointCloudFromFile", dataset=dataset_type),
     dict(type="LoadPointCloudAnnotations", with_bbox=True),
     dict(type="Preprocess", cfg=train_preprocessor),
-    # dict(type="Voxelization", cfg=voxel_generator),   ##todo:??
+    # dict(type="Voxelization", cfg=voxel_generator),
     dict(type="AssignLabel", cfg=train_cfg["assigner"]),
     dict(type="Reformat"),
     # dict(type='PointCloudCollect', keys=['points', 'voxels', 'annotations', 'calib']),
@@ -206,7 +206,7 @@ test_pipeline = [
     dict(type="LoadPointCloudFromFile", dataset=dataset_type),
     dict(type="LoadPointCloudAnnotations", with_bbox=True),
     dict(type="Preprocess", cfg=val_preprocessor),
-    # dict(type="Voxelization", cfg=voxel_generator),   ##todo:??
+    # dict(type="Voxelization", cfg=voxel_generator),
     dict(type="AssignLabel", cfg=train_cfg["assigner"]),
     dict(type="Reformat"),
 ]
@@ -231,7 +231,7 @@ data = dict(
         type=dataset_type,
         root_path=data_root,
         info_path=val_anno,
-        test_mode=True,  ## todo True,
+        test_mode=True,
         ann_file=val_anno,
         nsweeps=nsweeps,
         class_names=class_names,

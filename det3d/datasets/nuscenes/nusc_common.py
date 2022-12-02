@@ -172,7 +172,7 @@ def _second_det_to_nusc_box(detection):
                 quat,
                 label=labels[i],
                 score=scores[i],
-                velocity=velocity,    ##todo: why the pre.shape is 7 other than 9, it miss the velocity pred
+                velocity=velocity,    ##todo: Q:why the pre.shape is 7 other than 9, it miss the velocity pred? A:it miss the vel head
             )
         else:
             box = Box(
@@ -181,7 +181,7 @@ def _second_det_to_nusc_box(detection):
                 quat,
                 label=labels[i],
                 score=scores[i],
-                # velocity=velocity,    ##todo: why the pre.shape is 7 other than 9, it miss the velocity pred
+                # velocity=velocity,
             )
         box_list.append(box)
     return box_list

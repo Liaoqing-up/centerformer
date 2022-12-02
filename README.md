@@ -78,13 +78,15 @@ export PATH="/opt/sdatmp/starcar/anaconda3/bin:$PATH"
 , then run ```conda activate CenterFormer``` to activate the exist environment.
 
 3. cd your project dir, then run ```git clone git@github.com:star-car/centerformer.git``` to clone the repo to your local. 
-you can run ```git branch``` to see all the branch now. To start your own development, you should create your own branch. Please following the operates.
-4. run ```git checkout dev``` to switch to ```dev``` branch, and then run ```git checkout -b yourname``` to create a your own branch, 
+you can run ```git branch -a``` to see all the branch now. To start your own development, you should create your own branch. Please following the operates.
+4. run ```git checkout -t origin/dev``` to download the origin ```dev``` branch and switch to it, and then run ```git checkout -b yourname``` to create a your own branch locally, 
 all member's branch should rebase on ```dev``` branch. Please run ```git branch``` to check you are on your own branch now. Then you can modify the code and 
 use ```git commit``` to commit your development locally. If you have finished a key development, you can launch a PR
  on github to merge your commit to ```dev``` branch, the repo owner will review your code and pass the PR. 
 Then the other members can sync your modification.
-5. If you have time, you should learn more about the common uses of git.
+5. If any errors refer to environment in run, you may try ```sh setup.sh``` to rebuild the environment.
+6. If you have time, you should learn more about the common uses of git.
+
 
 
 

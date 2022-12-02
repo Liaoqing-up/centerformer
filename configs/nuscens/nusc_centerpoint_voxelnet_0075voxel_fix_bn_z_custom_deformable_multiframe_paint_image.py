@@ -198,7 +198,7 @@ train_pipeline = [
     dict(type="LoadPointCloudFromFile", dataset="NuScenesDataset_multi_frame", combine=5),
     dict(type="LoadPointCloudAnnotations", with_bbox=True),
     dict(type="Preprocess_multiframe", cfg=train_preprocessor),
-    # dict(type="Voxelization", cfg=voxel_generator),   ##todo:??
+    # dict(type="Voxelization", cfg=voxel_generator),
     dict(type="AssignLabel", cfg=train_cfg["assigner"]),
     dict(type="Reformat"),
     # dict(type='PointCloudCollect', keys=['points', 'voxels', 'annotations', 'calib']),
@@ -207,7 +207,7 @@ test_pipeline = [
     dict(type="LoadPointCloudFromFile", dataset="NuScenesDataset_multi_frame", combime=5),
     dict(type="LoadPointCloudAnnotations", with_bbox=True),
     dict(type="Preprocess_multiframe", cfg=val_preprocessor),
-    # dict(type="Voxelization", cfg=voxel_generator),   ##todo:??
+    # dict(type="Voxelization", cfg=voxel_generator),
     dict(type="AssignLabel", cfg=train_cfg["assigner"]),
     dict(type="Reformat"),
 ]

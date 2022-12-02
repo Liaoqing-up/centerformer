@@ -23,7 +23,7 @@ class Reformat(object):
 
         data_bundle = dict(
             metadata=meta,
-            #points_num=res["lidar"]["points_num"]  ##todo
+            #points_num=res["lidar"]["points_num"]  ##todo:?
             # points=points,
             # voxels=voxels["voxels"],
             # shape=voxels["shape"],

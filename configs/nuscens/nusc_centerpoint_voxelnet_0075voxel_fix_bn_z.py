@@ -89,7 +89,7 @@ model = dict(
         corner_loss=False,
         iou_loss=True,
         code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim': (3, 2), 'rot': (2, 2), 'iou': (1, 2)},
+        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim': (3, 2), 'rot': (2, 2), 'iou': (1, 2),},   ## todo: add 'vel': (2, 2)
         # (output_channel, num_conv)
     ),
 )
@@ -197,7 +197,7 @@ train_pipeline = [
     dict(type="LoadPointCloudFromFile", dataset=dataset_type),
     dict(type="LoadPointCloudAnnotations", with_bbox=True),
     dict(type="Preprocess", cfg=train_preprocessor),
-    # dict(type="Voxelization", cfg=voxel_generator),   ##todo:??
+    # dict(type="Voxelization", cfg=voxel_generator),
     dict(type="AssignLabel", cfg=train_cfg["assigner"]),
     dict(type="Reformat"),
     # dict(type='PointCloudCollect', keys=['points', 'voxels', 'annotations', 'calib']),
@@ -206,7 +206,7 @@ test_pipeline = [
     dict(type="LoadPointCloudFromFile", dataset=dataset_type),
     dict(type="LoadPointCloudAnnotations", with_bbox=True),
     dict(type="Preprocess", cfg=val_preprocessor),
-    # dict(type="Voxelization", cfg=voxel_generator),   ##todo:??
+    # dict(type="Voxelization", cfg=voxel_generator),
     dict(type="AssignLabel", cfg=train_cfg["assigner"]),
     dict(type="Reformat"),
 ]
@@ -231,7 +231,7 @@ data = dict(
         type=dataset_type,
         root_path=data_root,
         info_path=val_anno,
-        test_mode=True,  ## todo True,
+        test_mode=True,
         ann_file=val_anno,
         nsweeps=nsweeps,
         class_names=class_names,

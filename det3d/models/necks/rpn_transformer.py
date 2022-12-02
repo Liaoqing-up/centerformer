@@ -437,7 +437,7 @@ class RPN_transformer(RPN_transformer_base):
             labels
         )
 
-        if self.use_gt_training and self.hm_head.training:
+        if self.use_gt_training and self.hm_head.training:  ## todo: modify the trainning strategy
             gt_inds = example["ind"][0][:, (self.window_size // 2) :: self.window_size]
             gt_masks = example["mask"][0][
                 :, (self.window_size // 2) :: self.window_size
