@@ -160,13 +160,15 @@ class CenterHeadIoU_1d(nn.Module):
 
     def forward(self, x, *kwargs):
         ret_dicts = []
-
-        y = self.shared_conv(x["ct_feat"].float())
-
-        # import pdb;pdb.set_trace()
-        for task in self.tasks:
-            ret_dicts.append(task(x, y))
-
+        if isinstance(x,list):
+            for idx, task in enumerate(self.tasks):
+                y = self.shared_conv(x[idx]["ct_feat"].float())
+                ret_dicts.append(task(x[idx], y))
+        else:
+            y = self.shared_conv(x["ct_feat"].float())
+            for idx, task in enumerate(self.tasks):
+                ret_dicts.append(task(x, y))
+        
         return ret_dicts
 
     def _sigmoid(self, x):
@@ -612,6 +614,7 @@ def get_corresponding_box(x_ind, y_ind, y_mask, y_cls, target_box):
 
     for i in range(x_ind.shape[0]):
         idx = torch.arange(y_ind[i].shape[-1]).to(x_ind)
+        print(y_mask[i].shape, y_mask[i])
         idx = idx[y_mask[i]]
         box_cls = y_cls[i][y_mask[i]]
         valid_y_ind = y_ind[i][y_mask[i]]
