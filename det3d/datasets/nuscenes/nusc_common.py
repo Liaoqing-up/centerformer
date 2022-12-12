@@ -164,15 +164,25 @@ def _second_det_to_nusc_box(detection):
     box_list = []
     for i in range(box3d.shape[0]):
         quat = Quaternion(axis=[0, 0, 1], radians=box3d[i, -1])
-        velocity = (*box3d[i, 6:8], 0.0)
-        box = Box(
-            box3d[i, :3],
-            box3d[i, 3:6],
-            quat,
-            label=labels[i],
-            score=scores[i],
-            velocity=velocity,
-        )
+        if box3d.shape[-1] == 9:
+            velocity = (*box3d[i, 6:8], 0.0)
+            box = Box(
+                box3d[i, :3],
+                box3d[i, 3:6],
+                quat,
+                label=labels[i],
+                score=scores[i],
+                velocity=velocity,    ##todo: Q:why the pre.shape is 7 other than 9, it miss the velocity pred? A:it miss the vel head
+            )
+        else:
+            box = Box(
+                box3d[i, :3],
+                box3d[i, 3:6],
+                quat,
+                label=labels[i],
+                score=scores[i],
+                # velocity=velocity,
+            )
         box_list.append(box)
     return box_list
 

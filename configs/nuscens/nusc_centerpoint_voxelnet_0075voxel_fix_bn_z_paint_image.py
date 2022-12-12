@@ -33,7 +33,7 @@ model = dict(
         voxel_size=[0.075, 0.075, 0.2],
     ),
     backbone=dict(
-        type="SpMiddleResNetFHD", num_input_features=5, ds_factor=8
+        type="SpMiddleResNetFHD", num_input_features=16, ds_factor=8
     ),
     # neck=dict(
     #     type="RPN",
@@ -46,12 +46,13 @@ model = dict(
     #     logger=logging.getLogger("RPN"),
     # ),
     neck=dict(
-        type="RPN_transformer_deformable",  #RPN_transformer
+        type="RPN_transformer",  #RPN_transformer
         layer_nums=[5, 5, 1],
         ds_num_filters=[256, 256, 128],
         num_input_features=256,
         use_gt_training=True,
         corner=False,   ## True
+        tasks=tasks,
         classes=10,
         obj_num=500,
         score_threshold=0.1,
@@ -89,7 +90,7 @@ model = dict(
         corner_loss=False,
         iou_loss=True,
         code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim': (3, 2), 'rot': (2, 2), 'iou': (1, 2)},
+        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim': (3, 2), 'rot': (2, 2), 'iou': (1, 2),},   ## todo: add 'vel': (2, 2)
         # (output_channel, num_conv)
     ),
 )
@@ -134,7 +135,7 @@ data_root = "data/nuScenes"
 db_sampler = dict(
     type="GT-AUG",
     enable=False,
-    db_info_path="data/nuScenes/dbinfos_train_10sweeps_withvelo.pkl",
+    db_info_path="data/nuScenes/dbinfos_train_10sweeps_withvelo_virtual.pkl",
     sample_groups=[
         dict(car=2),
         dict(truck=3),
@@ -216,8 +217,8 @@ val_anno = "data/nuScenes/infos_val_10sweeps_withvelo_filter_True.pkl"
 test_anno = None
 
 data = dict(
-    samples_per_gpu=1,
-    workers_per_gpu=0,
+    samples_per_gpu=4,
+    workers_per_gpu=6,
     train=dict(
         type=dataset_type,
         root_path=data_root,
@@ -226,6 +227,7 @@ data = dict(
         nsweeps=nsweeps,
         class_names=class_names,
         pipeline=train_pipeline,
+        painted=True,
     ),
     val=dict(
         type=dataset_type,
@@ -236,6 +238,7 @@ data = dict(
         nsweeps=nsweeps,
         class_names=class_names,
         pipeline=test_pipeline,
+        painted=True,
     ),
     test=dict(
         type=dataset_type,
@@ -246,6 +249,7 @@ data = dict(
         nsweeps=nsweeps,
         class_names=class_names,
         pipeline=test_pipeline,
+        painted=True,
     ),
 )
 

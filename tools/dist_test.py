@@ -162,8 +162,8 @@ def main():
     start = 100
     end = 100+int(len(dataset) * 1 /50)
 
-    time_start = 0 
-    time_end = 0 
+    time_start = 0
+    time_end = 0
 
     for i, data_batch in enumerate(data_loader):
         if i == start:
@@ -210,6 +210,14 @@ def main():
         os.makedirs(args.work_dir)
 
     save_pred(predictions, args.work_dir)
+
+    # ##temp load exist predictions.pkl
+    # def load_pred(dir):
+    #     with open(os.path.join(dir, "prediction.pkl"), "rb") as f:
+    #         predictions = pickle.load(f)
+    #     return predictions
+
+    # predictions = load_pred(args.work_dir)
 
     result_dict, _ = dataset.evaluation(copy.deepcopy(predictions), output_dir=args.work_dir, testset=args.testset)
 

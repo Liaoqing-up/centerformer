@@ -4,13 +4,13 @@ import logging
 from det3d.utils.config_tool import get_downsample_factor
 
 tasks = [
-    # dict(num_class=1, class_names=["car"]),
-    # dict(num_class=2, class_names=["truck", "construction_vehicle"]),
-    # dict(num_class=2, class_names=["bus", "trailer"]),
-    # dict(num_class=1, class_names=["barrier"]),
-    # dict(num_class=2, class_names=["motorcycle", "bicycle"]),
-    # dict(num_class=2, class_names=["pedestrian", "traffic_cone"]),
-    dict(num_class=10, class_names=["car","truck", "construction_vehicle","bus", "trailer","barrier","motorcycle", "bicycle","pedestrian", "traffic_cone"]),
+    dict(num_class=1, class_names=["car"]),
+    dict(num_class=2, class_names=["truck", "construction_vehicle"]),
+    dict(num_class=2, class_names=["bus", "trailer"]),
+    dict(num_class=1, class_names=["barrier"]),
+    dict(num_class=2, class_names=["motorcycle", "bicycle"]),
+    dict(num_class=2, class_names=["pedestrian", "traffic_cone"]),
+    # dict(num_class=10, class_names=["car","truck", "construction_vehicle","bus", "trailer","barrier","motorcycle", "bicycle","pedestrian", "traffic_cone"]),
 ]
 
 class_names = list(itertools.chain(*[t["class_names"] for t in tasks]))
@@ -46,13 +46,14 @@ model = dict(
     #     logger=logging.getLogger("RPN"),
     # ),
     neck=dict(
-        type="RPN_transformer_deformable",  #RPN_transformer
+        type="RPN_transformer",  #RPN_transformer
         layer_nums=[5, 5, 1],
         ds_num_filters=[256, 256, 128],
         num_input_features=256,
         use_gt_training=True,
         corner=False,   ## True
         classes=10,
+        tasks=tasks,
         obj_num=500,
         score_threshold=0.1,
         frame=2,
@@ -84,12 +85,12 @@ model = dict(
         in_channels=256,
         tasks=tasks,
         dataset='nuscenes',
-        weight=2,
+        weight=0.25,  ## todo change 2(waymo) to 0.25(nus), need new baseline run
         assign_label_window_size=window_size,
         corner_loss=False,
         iou_loss=True,
-        code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim': (3, 2), 'rot': (2, 2), 'iou': (1, 2)},
+        code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.2, 1.0, 1.0],    ## no vel : [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim': (3, 2), 'rot': (2, 2), 'vel': (2, 2), 'iou': (1, 2),},   ## todo: add 'vel': (2, 2)
         # (output_channel, num_conv)
     ),
 )
@@ -217,7 +218,7 @@ test_anno = None
 
 data = dict(
     samples_per_gpu=1,
-    workers_per_gpu=0,
+    workers_per_gpu=4,
     train=dict(
         type=dataset_type,
         root_path=data_root,

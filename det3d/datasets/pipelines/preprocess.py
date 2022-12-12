@@ -375,7 +375,7 @@ class AssignLabel(object):
                 if self.corner_prediction:
                     corner = np.zeros((1, feature_map_size[1], feature_map_size[0]), dtype=np.float32)
 
-                if res['type'] in ['NuScenesDataset', 'NuScenesDataset_multi_frame']:   ##todo: add NuScenesDataset_multi_frame
+                if res['type'] in ['NuScenesDataset', 'NuScenesDataset_multi_frame']:
                     # [reg, hei, dim, vx, vy, rots, rotc]
                     anno_box = np.zeros((max_objs*window_size, 10), dtype=np.float32)
                 elif res['type'] in ['WaymoDataset','WaymoDataset_multi_frame']:
@@ -439,7 +439,7 @@ class AssignLabel(object):
                             ind[new_idx*window_size+j] = y[j] * feature_map_size[0] + x[j]
                             mask[new_idx*window_size+j] = 1
 
-                            if res['type'] in ['NuScenesDataset', 'NuScenesDataset_multi_frame']:   ##todo: add NuScenesDataset_multi_frame
+                            if res['type'] in ['NuScenesDataset', 'NuScenesDataset_multi_frame']:
                                 vx, vy = gt_dict['gt_boxes'][idx][k][6:8]
                                 rot = gt_dict['gt_boxes'][idx][k][8]
                                 anno_box[new_idx*window_size+j] = np.concatenate(
@@ -466,7 +466,7 @@ class AssignLabel(object):
             boxes = flatten(gt_dict['gt_boxes'])
             classes = merge_multi_group_label(gt_dict['gt_classes'], num_classes_by_task)
 
-            if res["type"] in ['NuScenesDataset', 'NuScenesDataset_multi_frame']:   ##todo: add NuScenesDataset_multi_frame
+            if res["type"] in ['NuScenesDataset', 'NuScenesDataset_multi_frame']:
                 gt_boxes_and_cls = np.zeros((max_objs, 10), dtype=np.float32)
             elif res['type'] in ['WaymoDataset','WaymoDataset_multi_frame']:
                 gt_boxes_and_cls = np.zeros((max_objs, 10), dtype=np.float32)

@@ -175,15 +175,17 @@ class CenterHeadIoU_1d(nn.Module):
 
     def loss(self, example, preds_dicts, test_cfg, **kwargs):
         rets = []
+        now_id = 0
         for task_id, preds_dict in enumerate(preds_dicts):
             # heatmap focal loss
             hm_loss = self.crit(
-                preds_dict["hm"],
+                preds_dict["hm"][:, now_id:now_id+self.num_classes[task_id],],
                 example["hm"][task_id],
                 example["ind"][task_id],
                 example["mask"][task_id],
                 example["cat"][task_id],
             )
+            now_id += self.num_classes[task_id]
 
             target_box = example["anno_box"][task_id]
 
@@ -482,7 +484,8 @@ class CenterHeadIoU_1d(nn.Module):
             if self.use_iou_loss:
                 iou_factor = torch.LongTensor(self.iou_factor).to(labels)
                 ious = batch_iou[i][mask]
-                ious = torch.pow(ious, iou_factor[labels])
+                # ious = torch.pow(ious, iou_factor[labels])    ## todo: fix the bug from iou_factors
+                ious = torch.pow(ious, 2)
                 scores = scores * ious
 
             boxes_for_nms = box_preds[:, [0, 1, 2, 3, 4, 5, -1]]
