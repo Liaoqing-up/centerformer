@@ -78,6 +78,7 @@ class RPN_transformer_base(nn.Module):
         corner=False,
         assign_label_window_size=1,
         classes=3,
+        tasks=[],
         use_gt_training=False,
         norm_cfg=None,
         logger=None,
@@ -107,6 +108,10 @@ class RPN_transformer_base(nn.Module):
         assert len(self._layer_strides) == len(self._layer_nums)
         assert len(self._num_filters) == len(self._layer_nums)
         assert self.transformer_config is not None
+        
+        num_classes = [len(t["class_names"]) for t in tasks]
+        print(sum(num_classes), classes)
+        assert sum(num_classes) == classes
 
         in_filters = [
             self._num_input_features,
@@ -132,25 +137,48 @@ class RPN_transformer_base(nn.Module):
             nn.ReLU(),
         )
         # heatmap prediction
-        self.hm_head = Sequential()
-        for i in range(hm_head_layer - 1):
-            self.hm_head.add(
-                nn.Conv2d(
-                    self._num_filters[-1] * 2,
-                    64,
-                    kernel_size=3,
-                    stride=1,
-                    padding=1,
-                    bias=True,
+        self.hm_head = nn.ModuleList()
+        for num_cls in num_classes:
+            hm_head = Sequential()
+            for i in range(hm_head_layer - 1):
+                hm_head.add(
+                    nn.Conv2d(
+                        self._num_filters[-1] * 2,
+                        64,
+                        kernel_size=3,
+                        stride=1,
+                        padding=1,
+                        bias=True,
+                    )
                 )
+                hm_head.add(build_norm_layer(self._norm_cfg, 64)[1])
+                hm_head.add(nn.ReLU())
+            hm_head.add(
+                nn.Conv2d(64, num_cls, kernel_size=3, stride=1, padding=1, bias=True)
             )
-            self.hm_head.add(build_norm_layer(self._norm_cfg, 64)[1])
-            self.hm_head.add(nn.ReLU())
+            hm_head[-1].bias.data.fill_(init_bias)
+            self.hm_head.append(hm_head)
 
-        self.hm_head.add(
-            nn.Conv2d(64, classes, kernel_size=3, stride=1, padding=1, bias=True)
-        )
-        self.hm_head[-1].bias.data.fill_(init_bias)     ## why fill bias ?
+
+        # self.hm_head = Sequential()
+        # for i in range(hm_head_layer - 1):
+        #     self.hm_head.add(
+        #         nn.Conv2d(
+        #             self._num_filters[-1] * 2,
+        #             64,
+        #             kernel_size=3,
+        #             stride=1,
+        #             padding=1,
+        #             bias=True,
+        #         )
+        #     )
+        #     self.hm_head.add(build_norm_layer(self._norm_cfg, 64)[1])
+        #     self.hm_head.add(nn.ReLU())
+        #
+        # self.hm_head.add(
+        #     nn.Conv2d(64, classes, kernel_size=3, stride=1, padding=1, bias=True)
+        # )
+        # self.hm_head[-1].bias.data.fill_(init_bias)     ## why fill bias ?
 
         if self.corner:
             self.corner_head = Sequential()
@@ -344,6 +372,14 @@ class RPN_transformer_base(nn.Module):
 
         return neighbor_feats, neighbor_pos, neighbor_time
 
+    def hm_head_forward(self, x):
+        hm = []
+        for head in self.hm_head:
+            hm.append(head(x))
+        hm = torch.cat(hm, dim=1)
+        return hm
+
+
 
 @NECKS.register_module
 class RPN_transformer(RPN_transformer_base):
@@ -356,6 +392,7 @@ class RPN_transformer(RPN_transformer_base):
         hm_head_layer=2,
         corner_head_layer=2,
         corner=False,
+        tasks=[],
         assign_label_window_size=1,
         classes=3,
         use_gt_training=False,
@@ -378,6 +415,7 @@ class RPN_transformer(RPN_transformer_base):
             corner,
             assign_label_window_size,
             classes,
+            tasks,
             use_gt_training,
             norm_cfg,
             logger,
@@ -386,6 +424,8 @@ class RPN_transformer(RPN_transformer_base):
             obj_num,
         )
 
+        num_classes = [len(t["class_names"]) for t in tasks]
+        assert sum(num_classes) == classes
         self.transformer_layer = Transformer(
             self._num_filters[-1] * 2,
             depth=transformer_config.depth,
@@ -421,7 +461,9 @@ class RPN_transformer(RPN_transformer_base):
         x_up = torch.cat([self.blocks[2](x_down), self.up(x)], dim=1)
 
         # heatmap head
-        hm = self.hm_head(x_up)
+        ## todo: support nus multi-task
+
+        hm = self.hm_head_forward(x_up)
 
         if self.corner and self.corner_head.training:
             corner_hm = self.corner_head(x_up)
@@ -613,7 +655,7 @@ class RPN_transformer_multiframe(RPN_transformer_base):
         x_up_fuse = self.out(x_up_fuse)
 
         # heatmap head
-        hm = self.hm_head(x_up_fuse)
+        hm = self.hm_head_forward(x_up_fuse)
 
         if self.corner and self.corner_head.training:
             corner_hm = self.corner_head(x_up_fuse)
@@ -772,7 +814,7 @@ class RPN_transformer_deformable(RPN_transformer_base):
         x_up = torch.cat([self.blocks[2](x_down), self.up(x)], dim=1)
 
         # heatmap head
-        hm = self.hm_head(x_up)
+        hm = self.hm_head_forward(x_up)
 
         if self.corner and self.corner_head.training:
             corner_hm = self.corner_head(x_up)
@@ -988,7 +1030,7 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
         x_up_fuse = self.out(x_up_fuse)
 
         # heatmap head
-        hm = self.hm_head(x_up_fuse)
+        hm = self.hm_head_forward(x_up_fuse)
 
         if self.corner and self.corner_head.training:
             corner_hm = self.corner_head(x_up_fuse)
@@ -1022,6 +1064,7 @@ class RPN_transformer_deformable_mtf(RPN_transformer_base):
         scores = torch.gather(scores, 1, order)
         labels = torch.gather(labels, 1, order)
         ##todo: mask should only used in eval,
+
         # trainning should mask first and then -gt_masks to recover the truth score
         # to ensurh all the gt inds in it, otherwise the low score(initial) will exclude the gt inds
         # from the debug info, it seems the scores all over the threds in training, it will not mask mistakes

@@ -175,15 +175,17 @@ class CenterHeadIoU_1d(nn.Module):
 
     def loss(self, example, preds_dicts, test_cfg, **kwargs):
         rets = []
+        now_id = 0
         for task_id, preds_dict in enumerate(preds_dicts):
             # heatmap focal loss
             hm_loss = self.crit(
-                preds_dict["hm"],
+                preds_dict["hm"][:, now_id:now_id+self.num_classes[task_id],],
                 example["hm"][task_id],
                 example["ind"][task_id],
                 example["mask"][task_id],
                 example["cat"][task_id],
             )
+            now_id += self.num_classes[task_id]
 
             target_box = example["anno_box"][task_id]
 
