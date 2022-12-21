@@ -181,7 +181,8 @@ class CenterHeadIoU_1d(nn.Module):
         for task_id, preds_dict in enumerate(preds_dicts):
             # heatmap focal loss
             hm_loss = self.crit(
-                preds_dict["hm"][:, now_id:now_id+self.num_classes[task_id],],
+                preds_dict["hm"],
+                # preds_dict["hm"][:, now_id:now_id + self.num_classes[task_id], ],
                 example["hm"][task_id],
                 example["ind"][task_id],
                 example["mask"][task_id],
@@ -614,7 +615,6 @@ def get_corresponding_box(x_ind, y_ind, y_mask, y_cls, target_box):
 
     for i in range(x_ind.shape[0]):
         idx = torch.arange(y_ind[i].shape[-1]).to(x_ind)
-        print(y_mask[i].shape, y_mask[i])
         idx = idx[y_mask[i]]
         box_cls = y_cls[i][y_mask[i]]
         valid_y_ind = y_ind[i][y_mask[i]]

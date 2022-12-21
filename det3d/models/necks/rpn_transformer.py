@@ -110,7 +110,6 @@ class RPN_transformer_base(nn.Module):
         assert self.transformer_config is not None
         
         num_classes = [len(t["class_names"]) for t in tasks]
-        print(sum(num_classes), classes)
         assert sum(num_classes) == classes
 
         in_filters = [

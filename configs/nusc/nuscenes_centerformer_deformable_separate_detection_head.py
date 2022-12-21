@@ -41,7 +41,7 @@ model = dict(
         tasks=tasks,
         use_gt_training=True,
         corner = True,
-        obj_num= 500,
+        obj_num= 200,
         assign_label_window_size=window_size,
         transformer_config=dict(
             depth = 2,
@@ -73,7 +73,7 @@ assigner = dict(
     out_size_factor=4,
     dense_reg=1,
     gaussian_overlap=0.1,
-    max_objs=500,
+    max_objs=200,   ##500
     min_radius=2,
     gt_kernel_size=window_size,
     corner_prediction=True,
@@ -98,7 +98,7 @@ test_cfg = dict(
     pc_range=[-54, -54],
     out_size_factor=4,
     voxel_size=[0.075, 0.075],
-    obj_num= 500,
+    obj_num= 200,   ##500
 )
 
 
@@ -186,7 +186,7 @@ test_anno = None
 
 data = dict(
     samples_per_gpu=2,
-    workers_per_gpu=0,
+    workers_per_gpu=6,
     train=dict(
         type=dataset_type,
         root_path=data_root,

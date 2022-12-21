@@ -387,7 +387,8 @@ class AssignLabel(object):
                 mask = np.zeros((max_objs*window_size), dtype=np.uint8)
                 cat = np.zeros((max_objs*window_size), dtype=np.int64)
 
-                num_objs = min(gt_dict['gt_boxes'][idx].shape[0], max_objs)  
+                num_objs = min(gt_dict['gt_boxes'][idx].shape[0], max_objs)
+                ## todo: check the max_objs=200 not over the max gt labels num
 
                 for k in range(num_objs):
                     cls_id = gt_dict['gt_classes'][idx][k] - 1
