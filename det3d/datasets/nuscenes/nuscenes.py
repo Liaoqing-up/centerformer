@@ -60,6 +60,7 @@ class NuScenesDataset(PointCloudDataset):
         self._name_mapping = general_to_detection
 
         self.painted = kwargs.get('painted', False)
+        self.painted_features = kwargs.get('painted_features', False)
         if self.painted:
             self._num_point_features += 11  ##todo:10
 
@@ -175,7 +176,8 @@ class NuScenesDataset(PointCloudDataset):
             "calib": None,
             "cam": {},
             "mode": "val" if self.test_mode else "train",
-            "painted": self.painted 
+            "painted": self.painted,
+            "painted_features": self.painted_features,
         }
 
         data, _ = self.pipeline(res, info)

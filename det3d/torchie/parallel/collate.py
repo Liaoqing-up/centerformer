@@ -134,7 +134,7 @@ def collate_kitti(batch_list, samples_per_gpu=1):
                         ret[key][k1].append(v1)
             for k1, v1 in ret[key].items():
                 ret[key][k1] = torch.tensor(np.stack(v1, axis=0))
-        elif key in ["points"]:
+        elif key in ["points", "points_uvc"]:
             ret[key] = [torch.tensor(elem) for elem in elems]
         elif key in ["multi_points"]:
             ret['points'] = [torch.tensor(frame) for elem in elems for frame in elem]
@@ -147,7 +147,7 @@ def collate_kitti(batch_list, samples_per_gpu=1):
                 coors.append(coor_pad)
             ret[key] = torch.tensor(np.concatenate(coors, axis=0))
         elif key in ["anchors", "anchors_mask", "reg_targets", "reg_weights", "labels", "hm", "anno_box",
-                    "ind", "mask", "cat","corners"]:
+                    "ind", "mask", "cat","corners", "images"]:
 
             ret[key] = defaultdict(list)
             res = []

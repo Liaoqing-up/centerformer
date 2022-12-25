@@ -41,6 +41,11 @@ class Reformat(object):
             points = res["lidar"]["points"]
             if points is not None:
                 data_bundle.update(points=points)
+        if 'painted_features' in res:
+            if res["painted_features"] and 'images' in res['cam']:
+                data_bundle.update(images=res['cam']['images'])
+            if 'points_uvc' in res["lidar"]:
+                data_bundle.update(points_uvc=res["lidar"]['points_uvc'])
 
         if 'voxels' in res["lidar"]:
             voxels = res["lidar"]["voxels"] 
