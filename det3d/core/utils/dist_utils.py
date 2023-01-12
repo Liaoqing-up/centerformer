@@ -42,6 +42,7 @@ def allreduce_grads(params, coalesce=True, bucket_size_mb=-1):
             dist.all_reduce(tensor.div_(world_size))
 
 
+# import torch
 class DistOptimizerHook(OptimizerHook):
     def __init__(self, grad_clip=None, coalesce=True, bucket_size_mb=-1):
         self.grad_clip = grad_clip
@@ -50,7 +51,19 @@ class DistOptimizerHook(OptimizerHook):
 
     def after_train_iter(self, runner):
         runner.optimizer.zero_grad()
+        ### losss NAN debug
+        # import torch.autograd as autograd
+        # print("$"*100)
+            # with autograd.detect_anomaly():
+        # print("$" * 100)
+        # print(runner.outputs)
         runner.outputs["loss"].backward()
+        # for name, param in runner.model.named_parameters():
+        #     if param.grad is not None and torch.isnan(param.grad).any():
+        #         print("nan gradient found")
+        #         print("name:", name)
+                # print("param:", param.grad)
+                # raise SystemExit
         allreduce_grads(runner.model.parameters(), self.coalesce, self.bucket_size_mb)
         if self.grad_clip is not None:
             self.clip_grads(runner.model.parameters())

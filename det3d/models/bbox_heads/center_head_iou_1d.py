@@ -188,6 +188,19 @@ class CenterHeadIoU_1d(nn.Module):
                 example["mask"][task_id],
                 example["cat"][task_id],
             )
+            #### losss NAN debug
+            # if torch.isnan(hm_loss):
+            #     print('hm_loss is nan!!!!!')
+            #     print("mask sum:", example["mask"][task_id].sum())
+                # hm_loss_ = self.crit(
+                #     preds_dict["hm"],
+                #     # preds_dict["hm"][:, now_id:now_id + self.num_classes[task_id], ],
+                #     example["hm"][task_id],
+                #     example["ind"][task_id],
+                #     example["mask"][task_id],
+                #     example["cat"][task_id],
+                # )
+                # raise SystemExit
             now_id += self.num_classes[task_id]
 
             target_box = example["anno_box"][task_id]

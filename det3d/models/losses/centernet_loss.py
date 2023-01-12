@@ -84,6 +84,9 @@ class FastFocalLoss(nn.Module):
       ind, mask: B x M
       cat (category id for peaks): B x M
     '''
+    ### loss NAN clamp
+    # eps=1e-5
+    # out = torch.clamp(out, eps, 1.0-eps)
     mask = mask.float()
     gt = torch.pow(1 - target, 4)
     neg_loss = torch.log(1 - out) * torch.pow(out, self.focal_factor) * gt

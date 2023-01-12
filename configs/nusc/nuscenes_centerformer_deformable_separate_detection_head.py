@@ -153,6 +153,17 @@ train_preprocessor = dict(
     db_sampler=db_sampler,
     class_names=class_names,
 )
+## add no aug config, for paint image features
+# train_preprocessor = dict(
+#     mode="train",
+#     shuffle_points=False, #True, False
+#     global_rot_noise=[-0.78539816, 0.78539816],
+#     global_scale_noise=[0.95, 1.05],
+#     global_translate_noise=0.5,
+#     no_augmentation=True,
+#     db_sampler=None, #db_sampler, None
+#     class_names=class_names,
+# )
 val_preprocessor = dict(
     mode="val",
     shuffle_points=False,
