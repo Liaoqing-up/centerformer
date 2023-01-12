@@ -480,6 +480,7 @@ def create_nuscenes_infos(root_path, version="v1.0-trainval", nsweeps=10, filter
     available_scene_names = [s["name"] for s in available_scenes]
     train_scenes = list(filter(lambda x: x in available_scene_names, train_scenes))
     val_scenes = list(filter(lambda x: x in available_scene_names, val_scenes))
+    ###  add for sampling
     # import random
     # train_scenes = random.sample(train_scenes, 100)
     # sample_train_scenes_path = '/opt/sdatmp/lq/dataset/nuScenes/infos_one_seventh_sample_scenes.txt'
@@ -519,6 +520,11 @@ def create_nuscenes_infos(root_path, version="v1.0-trainval", nsweeps=10, filter
             root_path / "infos_train_{:02d}sweeps_withvelo_filter_{}.pkl".format(nsweeps, filter_zero), "wb"
         ) as f:
             pickle.dump(train_nusc_infos, f)
+        ###  add for sampling
+        # with open(
+        #     root_path / "infos_train_{:02d}sweeps_withvelo_filter_{}_one_seventh.pkl".format(nsweeps, filter_zero), "wb"
+        # ) as f:
+        #     pickle.dump(train_nusc_infos, f)
         with open(
             root_path / "infos_val_{:02d}sweeps_withvelo_filter_{}.pkl".format(nsweeps, filter_zero), "wb"
         ) as f:
