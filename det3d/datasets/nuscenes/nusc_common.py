@@ -430,8 +430,10 @@ def _fill_trainval_infos(nusc, train_scenes, val_scenes, test=False, nsweeps=10,
 
         if sample["scene_token"] in train_scenes:
             train_nusc_infos.append(info)
-        else:
+        elif sample["scene_token"] in val_scenes:
             val_nusc_infos.append(info)
+        # else:
+        #     val_nusc_infos.append(info)
 
     return train_nusc_infos, val_nusc_infos
 
@@ -478,6 +480,13 @@ def create_nuscenes_infos(root_path, version="v1.0-trainval", nsweeps=10, filter
     available_scene_names = [s["name"] for s in available_scenes]
     train_scenes = list(filter(lambda x: x in available_scene_names, train_scenes))
     val_scenes = list(filter(lambda x: x in available_scene_names, val_scenes))
+    # import random
+    # train_scenes = random.sample(train_scenes, 100)
+    # sample_train_scenes_path = '/opt/sdatmp/lq/dataset/nuScenes/infos_one_seventh_sample_scenes.txt'
+    # with open(sample_train_scenes_path, 'w') as f:
+    #     for scene in train_scenes:
+    #         f.write(scene+'\n')
+    # f.close()
     train_scenes = set(
         [
             available_scenes[available_scene_names.index(s)]["token"]
