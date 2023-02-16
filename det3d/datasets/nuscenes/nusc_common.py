@@ -483,11 +483,16 @@ def create_nuscenes_infos(root_path, version="v1.0-trainval", nsweeps=10, filter
     ###  add for sampling
     # import random
     # train_scenes = random.sample(train_scenes, 100)
-    # sample_train_scenes_path = '/opt/sdatmp/lq/dataset/nuScenes/infos_one_seventh_sample_scenes.txt'
+    sample_train_scenes_path = '/opt/sdatmp/lq/dataset/nuScenes/infos_one_seventh_sample_scenes.txt'
     # with open(sample_train_scenes_path, 'w') as f:
     #     for scene in train_scenes:
     #         f.write(scene+'\n')
     # f.close()
+    # ## load for sampling again
+    # with open(sample_train_scenes_path, 'r') as f:
+    #     scenes = f.readlines()
+    #     train_scenes = [scene.strip('\n') for scene in scenes]
+
     train_scenes = set(
         [
             available_scenes[available_scene_names.index(s)]["token"]
