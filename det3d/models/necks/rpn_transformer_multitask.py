@@ -65,6 +65,18 @@ class SpatialAttention_mtf(nn.Module):
         return self.sigmoid(y) * prev
 
 
+class SpatialAttention_mtf_custom(nn.Module):
+    def __init__(self, in_channel, out_channel, kernel_size=7):
+        super(SpatialAttention_mtf_custom, self).__init__()
+
+        self.conv = nn.Conv2d(in_channel, out_channel, kernel_size, padding=kernel_size // 2, bias=False)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        x = self.conv(x)
+        return self.sigmoid(x)
+
+
 @NECKS.register_module
 class RPN_transformer_base_multitask(nn.Module):
     def __init__(
@@ -840,6 +852,267 @@ class RPN_transformer_deformable_multitask_mtf(RPN_transformer_base_multitask):
         ).reshape(x_up.shape[0], -1, 1, 1)
         # fuse mtf feature
         x_up_fuse = self.out(x_up_fuse)
+
+        order_list = []
+        out_dict_list = []
+        for idx, task in enumerate(self.tasks):
+            # heatmap head
+            hm = self.hm_heads[idx](x_up_fuse)
+
+            if self.corner and self.corner_heads[0].training:
+                corner_hm = self.corner_heads[idx](x_up)
+                corner_hm = torch.sigmoid(corner_hm)
+
+            # find top K center location
+            hm = torch.sigmoid(hm)
+            batch, num_cls, H, W = hm.size()
+
+            scores, labels = torch.max(hm.reshape(batch, num_cls, H * W), dim=1)  # b,H*W
+
+            if self.use_gt_training and self.hm_heads[0].training:
+                gt_inds = example["ind"][idx][:, (self.window_size // 2) :: self.window_size]
+                gt_masks = example["mask"][idx][
+                    :, (self.window_size // 2) :: self.window_size
+                ]
+                batch_id_gt = torch.from_numpy(np.indices((batch, gt_inds.shape[1]))[0]).to(
+                    labels
+                )
+                scores[batch_id_gt, gt_inds] = scores[batch_id_gt, gt_inds] + gt_masks
+                order = scores.sort(1, descending=True)[1]
+                order = order[:, : self.obj_num]
+                scores[batch_id_gt, gt_inds] = scores[batch_id_gt, gt_inds] - gt_masks
+            else:
+                order = scores.sort(1, descending=True)[1]
+                order = order[:, : self.obj_num]
+
+            scores = torch.gather(scores, 1, order)
+            labels = torch.gather(labels, 1, order)
+            mask = scores > self.score_threshold
+            order_list.append(order)
+
+            out_dict = {}
+            out_dict.update(
+                {
+                    "hm": hm,
+                    "scores": scores,
+                    "labels": labels,
+                    "order": order,
+                    "mask": mask,
+                    "BEV_feat": x_up,
+                    "H": H,
+                    "W": W,
+                }
+            )
+            if self.corner and self.corner_heads[0].training:
+                out_dict.update({"corner_hm": corner_hm})
+            out_dict_list.append(out_dict)
+
+        self.batch_id = torch.from_numpy(np.indices((batch, self.obj_num * len(self.tasks)))[0]).to(
+                labels
+            )
+        order_all = torch.cat(order_list,dim=1)
+
+        ct_feat = (
+            x_up.reshape(batch, -1, H * W)
+            .transpose(2, 1)
+            .contiguous()[self.batch_id, order_all]
+        )  # B, 500, C
+
+        # create position embedding for each center
+        y_coor = order_all // W
+        x_coor = order_all - y_coor * W
+        y_coor, x_coor = y_coor.to(ct_feat), x_coor.to(ct_feat)
+        y_coor, x_coor = y_coor / H, x_coor / W
+        pos_features = torch.stack([x_coor, y_coor], dim=2)
+
+        if self.parametric_embedding:
+            ct_feat = self.query_embed.weight
+            ct_feat = ct_feat.unsqueeze(0).expand(batch, -1, -1)
+
+        # run transformer
+        # src = torch.cat(
+        #     (
+        #         x_up.reshape(batch, -1, H * W).transpose(2, 1).contiguous(),
+        #         x.reshape(batch, -1, (H * W) // 4).transpose(2, 1).contiguous(),
+        #         x_down.reshape(batch, -1, (H * W) // 16)
+        #         .transpose(2, 1)
+        #         .contiguous(),
+        #     ),
+        #     dim=1,
+        # )  # B ,sum(H*W), C
+        src_list = [
+            x_up.reshape(batch, -1, H * W).transpose(2, 1).contiguous(),
+            x.reshape(batch, -1, (H * W) // 4).transpose(2, 1).contiguous(),
+            x_down.reshape(batch, -1, (H * W) // 16)
+            .transpose(2, 1)
+            .contiguous(),
+        ]
+        for frame in range(x_prev.shape[1]):
+            src_list.append(
+                x_prev[:, frame]
+                .reshape(batch, -1, (H * W))
+                .transpose(2, 1)
+                .contiguous()
+            )
+        src = torch.cat(src_list, dim=1)  # B ,sum(H*W), C
+        spatial_list = [(H, W), (H // 2, W // 2), (H // 4, W // 4)]
+        spatial_list += [(H, W) for frame in range(x_prev.shape[1])]
+        spatial_shapes = torch.as_tensor(
+            spatial_list,
+            dtype=torch.long,
+            device=ct_feat.device,
+        )
+        level_start_index = torch.cat(
+            (
+                spatial_shapes.new_zeros((1,)),
+                spatial_shapes.prod(1).cumsum(0)[:-1],
+            )
+        )
+
+        if len(self.tasks) > 1:
+            task_ids = torch.repeat_interleave(torch.arange(len(self.tasks)).repeat(batch,1), self.obj_num, dim=1).to(pos_features) # B, 500
+            pos_features = torch.cat([pos_features, task_ids[:, :, None]],dim=-1)
+
+        transformer_out = self.transformer_layer(
+            ct_feat,
+            self.pos_embedding,
+            src,
+            spatial_shapes,
+            level_start_index,
+            center_pos=pos_features,
+        )  # (B,N,C)
+
+        ct_feat = (
+            transformer_out["ct_feat"].transpose(2, 1).contiguous()
+        )  # B, C, 500
+
+        for idx, task in enumerate(self.tasks):
+            out_dict_list[idx]["ct_feat"] = ct_feat[:, :, idx * self.obj_num : (idx+1) * self.obj_num]
+
+        return out_dict_list
+
+
+@NECKS.register_module
+class RPN_transformer_deformable_multitask_mtf_custom(RPN_transformer_base_multitask):
+    def __init__(
+        self,
+        layer_nums,  # [2,2,2]
+        ds_num_filters,  # [128,256,64]
+        num_input_features,  # 256
+        transformer_config=None,
+        hm_head_layer=2,
+        corner_head_layer=2,
+        corner=False,
+        assign_label_window_size=1,
+        tasks=[],
+        use_gt_training=False,
+        norm_cfg=None,
+        name="RPN_transformer_deformable_multitask_mtf",
+        logger=None,
+        init_bias=-2.19,
+        score_threshold=0.1,
+        obj_num=500,
+        frame=1,
+        parametric_embedding=False,
+        **kwargs
+    ):
+        super(RPN_transformer_deformable_multitask_mtf_custom, self).__init__(
+            layer_nums,
+            ds_num_filters,
+            num_input_features,
+            transformer_config,
+            hm_head_layer,
+            corner_head_layer,
+            corner,
+            assign_label_window_size,
+            tasks,
+            use_gt_training,
+            norm_cfg,
+            logger,
+            init_bias,
+            score_threshold,
+            obj_num,
+        )
+        self.frame = frame
+        self.out = Sequential(
+            nn.Conv2d(
+                self._num_filters[0] * frame,
+                self._num_filters[0],
+                3,
+                padding=1,
+                bias=False,
+            ),
+            build_norm_layer(self._norm_cfg, self._num_filters[0])[1],
+            nn.ReLU(),
+        )
+        self.mtf_attention = SpatialAttention_mtf_custom(frame*ds_num_filters[0], frame)
+        # self.mtf_attention = SpatialAttention_mtf()
+        self.time_embedding = nn.Linear(1, self._num_filters[0])
+
+        self.transformer_layer = Deform_Transformer(
+            self._num_filters[-1] * 2,
+            depth=transformer_config.depth,
+            heads=transformer_config.heads,
+            levels=2 + self.frame,
+            dim_head=transformer_config.dim_head,
+            mlp_dim=transformer_config.MLP_dim,
+            dropout=transformer_config.DP_rate,
+            out_attention=transformer_config.out_att,
+            n_points=transformer_config.get("n_points", 9),
+        )
+        self.pos_embedding_type = transformer_config.get(
+            "pos_embedding_type", "linear"
+        )
+        if self.pos_embedding_type == "linear":
+            if len(self.tasks)>1:
+                self.pos_embedding = nn.Linear(3, self._num_filters[-1] * 2)
+            else:
+                self.pos_embedding = nn.Linear(2, self._num_filters[-1] * 2)
+        else:
+            raise NotImplementedError()
+        self.parametric_embedding = parametric_embedding
+        if self.parametric_embedding:
+            self.query_embed = nn.Embedding(self.obj_num * len(self.tasks), self._num_filters[-1] * 2)
+            nn.init.uniform_(self.query_embed.weight, -1.0, 1.0)
+
+        logger.info("Finish RPN_transformer_deformable Initialization")
+
+    def forward(self, x, example=None):
+
+        # FPN
+        x = self.blocks[0](x)
+        x_down = self.blocks[1](x)
+        x_up = torch.cat([self.blocks[2](x_down), self.up(x)], dim=1)
+
+        # take out the BEV feature on current frame
+        x = torch.split(x, self.frame)
+        x_up = torch.split(x_up, self.frame)
+        x_down = torch.split(x_down, self.frame)
+        x_prev = torch.stack([t[1:] for t in x_up], dim=0)  # B,K,C,H,W
+        x = torch.stack([t[0] for t in x], dim=0)
+        x_down = torch.stack([t[0] for t in x_down], dim=0)
+
+        x_up = torch.stack([t[0] for t in x_up], dim=0)  # B,C,H,W
+        # # use spatial attention in current frame on previous feature
+        # x_prev_cat = self.mtf_attention(
+        #     x_up, x_prev.reshape(x_up.shape[0], -1, x_up.shape[2], x_up.shape[3])
+        # )  # B,K*C,H,W
+        # # time embedding
+        # x_up_fuse = torch.cat((x_up, x_prev_cat), dim=1) + self.time_embedding(
+        #     example["times"][:, :, None].to(x_up)
+        # ).reshape(x_up.shape[0], -1, 1, 1)
+        # # fuse mtf feature
+        # x_up_fuse = self.out(x_up_fuse)
+
+        ### self-design mtf network
+        B, K, C, H, W = x_prev.shape
+        x_frames_cat = torch.cat((x_up, x_prev.reshape(B,-1,H,W)), dim=1) + self.time_embedding(
+            example["times"][:, :, None].to(x_up)
+        ).reshape(x_up.shape[0], -1, 1, 1)
+        x_frames_att = self.mtf_attention(x_frames_cat)
+        x_frames_att = x_frames_att.unsqueeze(2).expand(-1,-1,C,-1,-1).reshape(B,-1,H,W)
+        x_up_fuse = self.out(x_frames_cat * x_frames_att)
+
 
         order_list = []
         out_dict_list = []
