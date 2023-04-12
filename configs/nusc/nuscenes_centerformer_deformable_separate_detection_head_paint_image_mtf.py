@@ -189,7 +189,7 @@ val_anno = "data/nuScenes/infos_val_10sweeps_withvelo_filter_True.pkl"
 test_anno = None
 
 data = dict(
-    samples_per_gpu=1,
+    samples_per_gpu=2,
     workers_per_gpu=6,
     train=dict(
         type=dataset_type,

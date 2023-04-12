@@ -412,6 +412,7 @@ class Trainer(object):
             outputs = self.batch_processor_inline(
                 self.model, data_batch, train_mode=True, **kwargs
             )
+            # print(outputs)
 
             if not isinstance(outputs, dict):
                 raise TypeError("batch_processor() must return a dict")

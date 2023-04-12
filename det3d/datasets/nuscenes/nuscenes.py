@@ -159,6 +159,9 @@ class NuScenesDataset(PointCloudDataset):
     def get_sensor_data(self, idx):
 
         info = self._nusc_infos[idx]
+        # for i in range(len(self._nusc_infos)):
+        #     if self._nusc_infos[i]['token'] == 'b22fa0b3c34f47b6a360b60f35d5d567':
+        #         info = self._nusc_infos[i]
 
         res = {
             "lidar": {

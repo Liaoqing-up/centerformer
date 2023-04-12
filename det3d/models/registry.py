@@ -3,6 +3,7 @@ from det3d.utils import Registry
 READERS = Registry("reader")
 BACKBONES = Registry("backbone")
 NECKS = Registry("neck")
+MULTISCALENECKS = Registry("multiscale_neck")
 HEADS = Registry("head")
 LOSSES = Registry("loss")
 DETECTORS = Registry("detector")

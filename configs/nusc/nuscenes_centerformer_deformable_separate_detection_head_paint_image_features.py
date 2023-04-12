@@ -186,8 +186,8 @@ test_pipeline = [
     dict(type="Reformat"),
 ]
 
-# train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True.pkl"
-train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True_one_seventh.pkl"
+train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True.pkl"
+# train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True_one_seventh.pkl"
 val_anno = "data/nuScenes/infos_val_10sweeps_withvelo_filter_True.pkl"
 test_anno = None
 

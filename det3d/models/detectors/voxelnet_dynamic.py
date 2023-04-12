@@ -51,6 +51,8 @@ class VoxelNet_dynamic(SingleStageDetector):
         #         x, _ = self.extract_feat(example)
         x, _ = self.extract_feat(example)
         preds = self.bbox_head(x)
+        ### loss NAN debug
+        # print('cehck NAN:', torch.isnan(x).sum())
 
         if return_loss:
             return self.bbox_head.loss(example, preds, self.test_cfg)

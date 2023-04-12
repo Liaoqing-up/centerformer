@@ -7,6 +7,7 @@ from .registry import (
     HEADS,
     LOSSES,
     NECKS,
+    MULTISCALENECKS,
     READERS,
     SECOND_STAGE,
     ROI_HEAD
@@ -37,6 +38,9 @@ def build_backbone(cfg):
 
 def build_neck(cfg):
     return build(cfg, NECKS)
+
+def build_multiscale_neck(cfg):
+    return build(cfg, MULTISCALENECKS)
 
 def build_head(cfg):
     return build(cfg, HEADS)

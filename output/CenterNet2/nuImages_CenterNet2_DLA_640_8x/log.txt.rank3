@@ -1,0 +1,1700 @@
+[12/24 22:03:05] detectron2 INFO: Rank of current process: 3. World size: 4
+[12/24 22:03:05] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[12/24 22:03:05] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f27a025b9a0>
+[12/24 22:03:05] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[12/24 22:03:05] detectron2.utils.env INFO: Using a generated random seed 6381588
+[12/24 22:03:10] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[12/25 09:53:44] detectron2 INFO: Rank of current process: 3. World size: 4
+[12/25 09:53:45] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[12/25 09:53:45] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7efbd780b970>
+[12/25 09:53:45] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[12/25 09:53:46] detectron2.utils.env INFO: Using a generated random seed 46980775
+[12/25 09:53:57] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[12/25 20:32:57] detectron2 INFO: Rank of current process: 3. World size: 4
+[12/25 20:32:58] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[12/25 20:32:58] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f4b37c1e970>
+[12/25 20:32:58] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[12/25 20:32:58] detectron2.utils.env INFO: Using a generated random seed 59649986
+[12/25 20:33:02] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[12/25 23:02:01] detectron2 INFO: Rank of current process: 3. World size: 4
+[12/25 23:02:02] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[12/25 23:02:02] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7fd2027c8970>
+[12/25 23:02:02] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[12/25 23:02:02] detectron2.utils.env INFO: Using a generated random seed 3941631
+[12/25 23:02:07] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/02 10:32:23] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/02 10:32:23] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/02 10:32:23] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7fbf0ad449a0>
+[01/02 10:32:23] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/02 10:32:23] detectron2.utils.env INFO: Using a generated random seed 24476604
+[01/02 10:32:28] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/02 11:06:41] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/02 11:06:42] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/02 11:06:42] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7fe9a8c4e9a0>
+[01/02 11:06:43] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/02 11:06:43] detectron2.utils.env INFO: Using a generated random seed 43768671
+[01/02 11:09:12] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/02 11:31:37] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/02 11:31:37] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/02 11:31:37] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f3761d449a0>
+[01/02 11:31:37] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/02 11:31:37] detectron2.utils.env INFO: Using a generated random seed 38604623
+[01/02 11:31:42] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/02 22:48:35] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/02 22:48:35] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/02 22:48:35] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f60bec412b0>
+[01/02 22:48:36] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/02 22:48:36] detectron2.utils.env INFO: Using a generated random seed 36924331
+[01/02 22:48:40] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/02 22:50:32] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/02 22:50:32] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/02 22:50:32] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7fd63dc4e2b0>
+[01/02 22:50:32] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/02 22:50:32] detectron2.utils.env INFO: Using a generated random seed 33767508
+[01/02 22:50:37] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/02 22:53:43] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/02 22:53:44] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/02 22:53:44] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f612921a2e0>
+[01/02 22:53:44] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/02 22:53:44] detectron2.utils.env INFO: Using a generated random seed 45400414
+[01/02 22:53:48] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/03 17:24:54] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/03 17:24:55] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/03 17:24:55] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f4b23ed89d0>
+[01/03 17:24:56] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/03 17:24:56] detectron2.utils.env INFO: Using a generated random seed 57319457
+[01/03 17:25:00] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 00:28:54] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 00:28:55] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 00:28:55] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7ff777d78280>
+[01/06 00:28:55] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 00:28:55] detectron2.utils.env INFO: Using a generated random seed 58308887
+[01/06 00:28:59] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 00:30:14] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 00:30:15] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 00:30:15] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7fcc886112b0>
+[01/06 00:30:15] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 00:30:15] detectron2.utils.env INFO: Using a generated random seed 18176837
+[01/06 00:30:19] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 11:11:23] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 11:11:25] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 11:11:25] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f1ca996a9d0>
+[01/06 11:11:25] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 11:11:25] detectron2.utils.env INFO: Using a generated random seed 28097967
+[01/06 11:11:29] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 11:47:11] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 11:47:12] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 11:47:12] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f295cbaa9d0>
+[01/06 11:47:13] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 11:47:13] detectron2.utils.env INFO: Using a generated random seed 15936462
+[01/06 11:47:17] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 12:09:48] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 12:09:49] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 12:09:49] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f55d5c419d0>
+[01/06 12:09:49] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 12:09:49] detectron2.utils.env INFO: Using a generated random seed 52213322
+[01/06 12:09:53] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 13:24:57] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 13:24:57] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 13:24:57] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f8f7b5b29d0>
+[01/06 13:24:57] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 13:24:58] detectron2.utils.env INFO: Using a generated random seed 60656472
+[01/06 13:25:02] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 13:59:07] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 13:59:08] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 13:59:08] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f9fe116c9d0>
+[01/06 13:59:08] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 13:59:08] detectron2.utils.env INFO: Using a generated random seed 10791443
+[01/06 13:59:12] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/06 14:42:18] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/06 14:42:19] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/06 14:42:19] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7f720ccbe9d0>
+[01/06 14:42:19] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/06 14:42:19] detectron2.utils.env INFO: Using a generated random seed 21982466
+[01/06 14:42:23] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...
+[01/09 10:07:19] detectron2 INFO: Rank of current process: 3. World size: 4
+[01/09 10:07:20] detectron2 INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.9.13 (main, Oct 13 2022, 21:15:33) [GCC 11.2.0]
+numpy                   1.23.4
+detectron2              0.6 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/detectron2
+Compiler                GCC 7.3
+CUDA compiler           CUDA 11.1
+detectron2 arch flags   3.7, 5.0, 5.2, 6.0, 6.1, 7.0, 7.5, 8.0, 8.6
+DETECTRON2_ENV_MODULE   <not set>
+PyTorch                 1.9.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torch
+PyTorch debug build     False
+GPU available           Yes
+GPU 0,1,2,3             NVIDIA GeForce RTX 3090 (arch=8.6)
+Driver version          515.65.01
+CUDA_HOME               /usr/local/cuda-11.3
+Pillow                  9.2.0
+torchvision             0.10.1+cu111 @/opt/sdatmp/starcar/anaconda3/envs/CenterFormer/lib/python3.9/site-packages/torchvision
+torchvision arch flags  3.5, 5.0, 6.0, 7.0, 7.5, 8.0, 8.6
+fvcore                  0.1.5
+iopath                  0.1.9
+cv2                     4.6.0
+----------------------  -----------------------------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.1.2 (Git Hash 98be7e8afa711dc9b66c8ff3504129cb82013cdb)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.0.5
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.1, CUDNN_VERSION=8.0.5, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.9.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+[01/09 10:07:20] detectron2 INFO: Command line arguments: <det3d.models.detectors.voxelnet_fusion.Args_img object at 0x7fe75c5ad9a0>
+[01/09 10:07:20] detectron2 INFO: Contents of args.config_file=/opt/sdatmp/lq/project/segproject/MVP/c2_config/nuImages_CenterNet2_DLA_640_8x.yaml:
+[38;5;197m_BASE_[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBase-CenterNet2.yaml[39m[38;5;186m"[39m
+[38;5;197mMODEL[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMASK_ON[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m  [39m[38;5;197mROI_MASK_HEAD[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mMaskRCNNConvUpsampleHead[39m[38;5;186m"[39m
+[38;5;15m    [39m[38;5;197mNUM_CONV[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m4[39m
+[38;5;15m    [39m[38;5;197mPOOLER_RESOLUTION[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m14[39m
+[38;5;15m  [39m[38;5;197mROI_HEADS[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNUM_CLASSES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m10[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mBACKBONE[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNAME[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mbuild_dla_backbone[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mDLA[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mNORM[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m"[39m[38;5;186mBN[39m[38;5;186m"[39m
+[38;5;15m  [39m[38;5;197mCENTERNET[39m[38;5;15m:[39m
+[38;5;15m    [39m[38;5;197mIN_FEATURES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;186m"[39m[38;5;186mdla2[39m[38;5;186m"[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mFPN_STRIDES[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m4[39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mSOI[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m[[39m[38;5;15m0[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m1000000[39m[38;5;15m][39m[38;5;15m][39m
+[38;5;15m    [39m[38;5;197mNUM_CLS_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mNUM_BOX_CONVS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1[39m
+[38;5;15m    [39m[38;5;197mREG_WEIGHT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m1.[39m
+[38;5;15m    [39m[38;5;197mMORE_POS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mTrue[39m
+[38;5;15m    [39m[38;5;197mHM_FOCAL_ALPHA[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.25[39m
+[38;5;15m    [39m[38;5;197mPOST_NMS_TOPK_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m128[39m
+[38;5;15m  [39m[38;5;197mWEIGHTS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;186m'[39m[38;5;186m'[39m
+[38;5;15m  [39m[38;5;197mPIXEL_MEAN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m123.675[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m116.280[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m103.530[39m[38;5;15m][39m
+[38;5;15m  [39m[38;5;197mPIXEL_STD[39m[38;5;15m:[39m[38;5;15m [39m[38;5;15m[[39m[38;5;15m58.395[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.12[39m[38;5;15m,[39m[38;5;15m [39m[38;5;15m57.375[39m[38;5;15m][39m
+[38;5;197mSOLVER[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mMAX_ITER[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m180000[39m
+[38;5;15m  [39m[38;5;197mSTEPS[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m(120000,[39m[38;5;141m [39m[38;5;141m160000)[39m
+[38;5;15m  [39m[38;5;197mBASE_LR[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m0.08[39m
+[38;5;15m  [39m[38;5;197mIMS_PER_BATCH[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m64[39m
+[38;5;197mINPUT[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mFORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mRGB[39m
+[38;5;15m  [39m[38;5;197mCUSTOM_AUG[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mEfficientDetResizeCrop[39m
+[38;5;15m  [39m[38;5;197mTRAIN_SIZE[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m640[39m
+[38;5;15m  [39m[38;5;197mMIN_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m608[39m
+[38;5;15m  [39m[38;5;197mMAX_SIZE_TEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m900[39m
+[38;5;15m  [39m[38;5;197mMASK_FORMAT[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141mbitmask[39m
+[38;5;197mDATASETS[39m[38;5;15m:[39m
+[38;5;15m  [39m[38;5;197mTRAIN[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_train",)[39m
+[38;5;15m  [39m[38;5;197mTEST[39m[38;5;15m:[39m[38;5;15m [39m[38;5;141m("nuimages_val",)[39m
+
+[01/09 10:07:20] detectron2.utils.env INFO: Using a generated random seed 25022259
+[01/09 10:07:25] fvcore.common.checkpoint INFO: [Checkpointer] Loading from /opt/sdatmp/lq/project/segproject/MVP/centernet2_checkpoint.pth ...

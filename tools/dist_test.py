@@ -3,6 +3,7 @@ import copy
 import json
 import os
 import sys
+# os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 
 # try:
 #     import apex
@@ -27,7 +28,7 @@ from det3d.torchie.trainer import get_dist_info, load_checkpoint
 from det3d.torchie.trainer.utils import all_gather, synchronize
 from torch.nn.parallel import DistributedDataParallel
 import pickle 
-import time 
+import time
 
 def save_pred(pred, root):
     with open(os.path.join(root, "prediction.pkl"), "wb") as f:
@@ -216,7 +217,7 @@ def main():
     #     with open(os.path.join(dir, "prediction.pkl"), "rb") as f:
     #         predictions = pickle.load(f)
     #     return predictions
-
+    #
     # predictions = load_pred(args.work_dir)
 
     result_dict, _ = dataset.evaluation(copy.deepcopy(predictions), output_dir=args.work_dir, testset=args.testset)

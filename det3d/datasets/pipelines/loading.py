@@ -24,7 +24,7 @@ def _dict_select(dict_, inds):
 
 def handle_painted(path, num_point_feature):
     painted_dir_name = '_VIRTUAL_DBSCAN_3D_10_FILTEDGE'
-    dir_path = '/' + os.path.join(*path.split('/')[:-2], path.split('/')[-2]+painted_dir_name)
+    dir_path = os.path.join(*path.split('/')[:-2], path.split('/')[-2]+painted_dir_name)
     painted_path = os.path.join(dir_path, path.split('/')[-1]+'.pkl.npy')
     points_dict =  np.load(painted_path, allow_pickle=True).item()
     fore_points =  points_dict['real_points']   ## N 15
@@ -269,6 +269,8 @@ class LoadPointCloudFromFile(object):
 
             points = np.concatenate(sweep_points_list, axis=0)
             times = np.concatenate(sweep_times_list, axis=0).astype(points.dtype)
+            # points = np.concatenate(sweep_points_list[:5], axis=0)
+            # times = np.concatenate(sweep_times_list[:5], axis=0).astype(points.dtype)
 
             if res["painted_features"]:
                 points_uvc = get_points_image_pos(points[:,:3], info)
@@ -409,6 +411,51 @@ class LoadPointCloudFromFile(object):
 
         else:
             raise NotImplementedError
+
+        # ## add meshlab pointcloud save
+        # save = True
+        # if save:
+        #     from det3d.core.bbox.box_np_ops import center_to_corner_box3d
+        #
+        #     lines = [(1, 2), (2, 3), (3, 4), (4, 1), (2, 6), (6, 5), (5, 1), (6, 7), (7, 3), (7, 8), (8, 4), (8, 5)]
+        #     def write_obj(all_gt, filepath):
+        #         """
+        #         Saves 3d points which can be read in meshlab
+        #         """
+        #         print("adding new 3D points to OBJ file...")
+        #         with open(filepath, 'wb') as fp:
+        #             for idx, gt in enumerate(all_gt):
+        #                 for v in gt:
+        #                     fp.write(('v %f %f %f\n' % (v[0], v[1], v[2])).encode())
+        #                 for i in range(len(lines)):
+        #                     fp.write(('l %d %d\n' % (lines[i][0] + idx * 8, lines[i][1] + idx * 8)).encode())
+        #         fp.close()
+        #
+        #     save_root = '/opt/sdatmp/lq/project/centerformer/vis/meshlab'
+        #     save_dir = os.path.join(save_root, info['token'])
+        #     if not os.path.isdir(save_dir):
+        #         os.mkdir(save_dir)
+        #     ## save frames points
+        #     for i in range(len(sweep_points_list)):
+        #         np.savetxt(os.path.join(save_dir, f'frame_{i}.txt'), sweep_points_list[i][:, :3])
+        #         print(sweep_points_list[i][:, :3].shape, "save to{}".format(os.path.join(save_dir, f'frame_{i}.txt')))
+        #     np.savetxt(os.path.join(save_dir, f'frame_all.txt'), np.concatenate(sweep_combined_list, axis=0)[:, [0,1,2,-1]])
+        #     ## save gt
+        #     gt_box = info['gt_boxes']
+        #     gt_box_o3d = gt_box[:, [0,1,2,3,4,5,8]]
+        #     np.savetxt(os.path.join(save_dir, f'gt_bojs_o3d.txt'), gt_box_o3d)
+        #     corners = center_to_corner_box3d(gt_box[:, :3], gt_box[:, 3:6],
+        #                                      gt_box[:, -1])
+        #     write_obj(corners, os.path.join(save_dir, f'gt_objs.obj'))
+        #     print("gt_boxes save to{}".format(os.path.join(save_dir, f'gt_objs.obj')))
+        #     gt_box_vel = np.linalg.norm(gt_box[:, 6:8], ord=2, axis=1)
+        #     vel_mask = gt_box_vel >= 3
+        #     gt_box_vel_o3d = gt_box[vel_mask, [0, 1, 2, 3, 4, 5, 8]]
+        #     np.savetxt(os.path.join(save_dir, f'gt_bojs_vel_o3d.txt'), gt_box_vel_o3d)
+        #     gt_box_mask = corners[vel_mask]
+        #     write_obj(gt_box_mask, os.path.join(save_dir, f'gt_objs_vel.obj'))
+        #     print("gt_boxes save to{}".format(os.path.join(save_dir, f'gt_objs_vel.obj')))
+
 
         return res, info
 
